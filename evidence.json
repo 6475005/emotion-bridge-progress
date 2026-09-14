@@ -1,0 +1,97 @@
+{
+  "as_of": "2026-09-14",
+  "scope": "Selected exposed development milestones; not an exhaustive run count, matched optimization curve, or human rating.",
+  "metric": "raw rotation6D MSE, recording-macro, own-audio generation; lower is closer to recorded targets",
+  "populations": {
+    "japanese": {
+      "windows": 267,
+      "recordings": 102
+    },
+    "zeggs": {
+      "windows": 582,
+      "recordings": 21
+    }
+  },
+  "series": [
+    {
+      "label": "Shared 4k",
+      "report_id": "multisource-context-body-fit-1",
+      "updates": 4000,
+      "japanese": 0.01941536397588868,
+      "zeggs": 0.02960558898198031
+    },
+    {
+      "label": "Style/history 8k",
+      "report_id": "multisource-context-body-fit-6",
+      "updates": 8000,
+      "japanese": 0.018597671701707626,
+      "zeggs": 0.026548107217225062
+    },
+    {
+      "label": "Control 16k",
+      "report_id": "multisource-context-body-fit-8",
+      "updates": 16000,
+      "japanese": 0.0177026220670299,
+      "zeggs": 0.025539556442412032
+    },
+    {
+      "label": "Trinity v5 16k",
+      "report_id": "trinity-multisource-body-fit-1",
+      "updates": 16000,
+      "japanese": 0.017849501302254524,
+      "zeggs": 0.025896119717111303
+    }
+  ],
+  "source_sha256": {
+    "multisource-context-body-fit-1": "4cf260168dfdc1bd30fe962f9265773738e3381a59ed2acb7e3112a9df482933",
+    "multisource-context-body-fit-6": "67a88b806ea10423c6d80182c8a9f304f13c6c3e307e4f06f9a4111d76913156",
+    "multisource-context-body-fit-8": "b9b8cff8d0956f622966fec1f3915712fd6016e1d7984c6c35db9c0b979b7846",
+    "trinity-multisource-body-fit-1": "50485e70506dc1498ba7f0fb3c44de1c9c8844f901e19af87e4e7546dcbc45bc",
+    "japanese-native-training-data-1": "254001597eb92fe0be360093e28e2a395aa330538f86b9b8372ad2b1293eb45e",
+    "zeggs-body-training-data-1": "ab3caff15ffadec5fa4bbd49088061be26ed2e1039f3424ec911173a48f03fd6",
+    "trinity-body-training-data-1": "b0de7f9987c8a6077d96647e01fc9d3e13d9224e3625b6e36353884f43a855cd"
+  },
+  "datasets": [
+    {
+      "id": "japanese-native",
+      "fit_windows": 2126,
+      "development_windows": 267,
+      "fit_recordings": 770,
+      "development_recordings": 102,
+      "seconds_per_window": 4,
+      "role": "adopted v5 Japanese route"
+    },
+    {
+      "id": "zeggs",
+      "fit_windows": 1366,
+      "development_windows": 582,
+      "fit_recordings": 46,
+      "development_recordings": 21,
+      "seconds_per_window": 4,
+      "role": "adopted shared body training"
+    },
+    {
+      "id": "trinity-ii",
+      "fit_windows": 2564,
+      "development_windows": 1389,
+      "fit_recordings": 12,
+      "development_recordings": 6,
+      "seconds_per_window": 4,
+      "role": "adopted v5 English reply route"
+    },
+    {
+      "id": "beat2-english",
+      "fit_windows": 4613,
+      "development_windows": 3379,
+      "seconds_per_window": 4,
+      "role": "inherited pretrained route, frozen in v5 continuation"
+    },
+    {
+      "id": "genea-2023",
+      "fit_windows": 11982,
+      "development_windows": 4506,
+      "seconds_per_window": 4,
+      "role": "separate dialogue/context prototypes, not the adopted live v5 route"
+    }
+  ]
+}
