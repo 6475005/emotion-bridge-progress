@@ -93,5 +93,81 @@
       "seconds_per_window": 4,
       "role": "separate dialogue/context prototypes, not the adopted live v5 route"
     }
-  ]
+  ],
+  "latency_previous": {
+    "date": "2026-09-09",
+    "report_sha256": "e2b46c34c3ae5444018f63aed11a8ab5ffed272680559f01a27b0b8dae549a6e",
+    "requests": 20,
+    "first_audio_progress_ms": {
+      "count": 20,
+      "min": 247.30000001192093,
+      "median": 413.55000000447035,
+      "p95_inclusive": 584.8550000078977,
+      "max": 665.6999999880791
+    },
+    "native_total_ms": {
+      "count": 20,
+      "min": 213.5,
+      "median": 374.85,
+      "p95_inclusive": 546.4000000000001,
+      "max": 571.1
+    },
+    "body_ms": {
+      "count": 20,
+      "min": 4.044606001116335,
+      "median": 4.148444510065019,
+      "p95_inclusive": 4.371447403536877,
+      "max": 4.472800996154547
+    },
+    "body_target_origin": "authored-schematic",
+    "matched_comparison_to_current": false
+  },
+  "latency_current": [
+    {
+      "id": "JA01",
+      "native_seconds": 1.2216916866600513,
+      "features_seconds": 0.017740173265337944,
+      "body_seconds": 0.31152852810919285,
+      "service_seconds": 1.6207627039402723,
+      "transport_seconds": 1.9003878619987518,
+      "browser_audio_seconds": 2.0895
+    },
+    {
+      "id": "JA02",
+      "native_seconds": 1.3209752589464188,
+      "features_seconds": 0.017914745025336742,
+      "body_seconds": 0.3116004685871303,
+      "service_seconds": 1.7174544618465006,
+      "transport_seconds": 2.0166070100385696,
+      "browser_audio_seconds": 2.1801000000238417
+    },
+    {
+      "id": "EN01",
+      "native_seconds": 2.093072168994695,
+      "features_seconds": 0.01886532688513398,
+      "body_seconds": 0.32855246029794216,
+      "service_seconds": 2.5084797283634543,
+      "transport_seconds": 2.8402433319715783,
+      "browser_audio_seconds": 3.035599999964237
+    },
+    {
+      "id": "EN02",
+      "native_seconds": 1.752370239701122,
+      "features_seconds": 0.017895234748721123,
+      "body_seconds": 0.3223345512524247,
+      "service_seconds": 2.160029819700867,
+      "transport_seconds": 2.433047989034094,
+      "browser_audio_seconds": 2.548100000023842
+    }
+  ],
+  "motion_review_sources": {
+    "docs/research-content-native-playback-2026-09-14.md": "38a662dddc2de07e86697a24dcf44be0546df14c6dff189790655a222396fc6c",
+    "docs/research-genea-transcript-intervals-2026-09-14.md": "85c82faf1da76bb6bf041c8a03bd9ee9f5ff824d950406f30e855f9738e78586",
+    "docs/research-trinity-denoised-continuation-2026-09-13.md": "64b14bd8595f296cd87e4dee134567e69939d7445cf15d1dea91aeb8216d26a1"
+  },
+  "review_screenshots": {
+    "motion-comparison.png": "07e86b5a681599090e2a98f410f7a55282e5f12fb3e779c8e612cbc30fbf8d22",
+    "source-timing.png": "71205eebe34d295219d81686ed5132645b307599da73b30d4fdabfe5530a6c2a"
+  },
+  "latency_measurement_scope": "native_seconds is complete NativeEngine.generate wall time, not isolated GPU computation or first speech chunk; browser_audio_seconds is text-button submission to first positive audio clock, not user-utterance-end to first audible robot reply."
 }
