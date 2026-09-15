@@ -1,6 +1,6 @@
 {
   "as_of": "2026-09-14",
-  "scope": "Selected exposed development milestones; not an exhaustive run count, matched optimization curve, or human rating.",
+  "scope": "Selected exposed development milestones of one lineage (fit-4 -> fit-6 -> fit-8 / trinity-fit-1); not an exhaustive run count, matched optimization curve, or human rating.",
   "metric": "raw rotation6D MSE, recording-macro, own-audio generation; lower is closer to recorded targets",
   "populations": {
     "japanese": {
@@ -15,10 +15,11 @@
   "series": [
     {
       "label": "Shared 4k",
-      "report_id": "multisource-context-body-fit-1",
+      "report_id": "multisource-context-body-fit-4",
       "updates": 4000,
-      "japanese": 0.01941536397588868,
-      "zeggs": 0.02960558898198031
+      "japanese": 0.019672401717174246,
+      "zeggs": 0.02959012889296651,
+      "note": "fit-4 is the checkpoint that fit-6 (8k) restored; the earlier fit-1 (v1 architecture, JA 0.01941536 / ZEGGS 0.02960559) is a separate run and is no longer plotted."
     },
     {
       "label": "Style/history 8k",
@@ -39,17 +40,19 @@
       "report_id": "trinity-multisource-body-fit-1",
       "updates": 16000,
       "japanese": 0.017849501302254524,
-      "zeggs": 0.025896119717111303
+      "zeggs": 0.025896119717111303,
+      "adopted": true,
+      "note": "Currently live (provisional) model full-v5-16k; adds the Trinity English route at the cost of +0.83% / +1.40% raw MSE vs the 16k control."
     }
   ],
   "source_sha256": {
-    "multisource-context-body-fit-1": "4cf260168dfdc1bd30fe962f9265773738e3381a59ed2acb7e3112a9df482933",
     "multisource-context-body-fit-6": "67a88b806ea10423c6d80182c8a9f304f13c6c3e307e4f06f9a4111d76913156",
     "multisource-context-body-fit-8": "b9b8cff8d0956f622966fec1f3915712fd6016e1d7984c6c35db9c0b979b7846",
     "trinity-multisource-body-fit-1": "50485e70506dc1498ba7f0fb3c44de1c9c8844f901e19af87e4e7546dcbc45bc",
     "japanese-native-training-data-1": "254001597eb92fe0be360093e28e2a395aa330538f86b9b8372ad2b1293eb45e",
     "zeggs-body-training-data-1": "ab3caff15ffadec5fa4bbd49088061be26ed2e1039f3424ec911173a48f03fd6",
-    "trinity-body-training-data-1": "b0de7f9987c8a6077d96647e01fc9d3e13d9224e3625b6e36353884f43a855cd"
+    "trinity-body-training-data-1": "b0de7f9987c8a6077d96647e01fc9d3e13d9224e3625b6e36353884f43a855cd",
+    "multisource-context-body-fit-4": "21c0180a87ca3a427d71228499e18323ab6555e19f1586b3651b353066c5de5b"
   },
   "datasets": [
     {
@@ -169,5 +172,1718 @@
     "motion-comparison.png": "07e86b5a681599090e2a98f410f7a55282e5f12fb3e779c8e612cbc30fbf8d22",
     "source-timing.png": "71205eebe34d295219d81686ed5132645b307599da73b30d4fdabfe5530a6c2a"
   },
-  "latency_measurement_scope": "native_seconds is complete NativeEngine.generate wall time, not isolated GPU computation or first speech chunk; browser_audio_seconds is text-button submission to first positive audio clock, not user-utterance-end to first audible robot reply."
+  "latency_measurement_scope": "native_seconds is complete NativeEngine.generate wall time, not isolated GPU computation or first speech chunk; browser_audio_seconds is text-button submission to first positive audio clock, not user-utterance-end to first audible robot reply.",
+  "controls": {
+    "metric": "raw rotation6D MSE, recording-macro, same development populations as series",
+    "japanese": {
+      "static_fitting_mean_pose": 0.0131797182,
+      "audio_free_16k_control": 0.020572461,
+      "own_audio_16k_control": 0.0177026220670299,
+      "codec_reconstruction_floor": 0.0004938672,
+      "velocity_cosine_own_16k": 0.05650578,
+      "velocity_cosine_audio_free_16k": -0.00081353,
+      "sources": [
+        "docs/research-native-motion-codec-2026-09-12.md:41,75",
+        "docs/research-multisource-long-continuation-2026-09-13.md:80-87"
+      ]
+    },
+    "zeggs": {
+      "static_fitting_mean_pose": 0.02183652,
+      "audio_free_16k_control": 0.032944,
+      "own_audio_16k_control": 0.025539556442412032,
+      "velocity_cosine_own_16k": 0.01497069,
+      "sources": [
+        "docs/research-zeggs-style-history-2026-09-13.md:79",
+        "docs/research-multisource-long-continuation-2026-09-13.md:80-87",
+        "multisource-context-body-fit-8/report.json"
+      ]
+    },
+    "trinity": {
+      "static_fitting_mean_pose": 0.01215521,
+      "covariance_trace_ratio_control_17024": 0.54599,
+      "sources": [
+        "docs/research-trinity-generated-history-2026-09-13.md:103",
+        "docs/research-trinity-denoised-continuation-2026-09-13.md:148"
+      ]
+    },
+    "audio_specificity_diagnostic_2026_09_12": {
+      "model": "native latent generator before v5 (Japanese route, 2026-09-12)",
+      "raw_error_reduction_correct_vs_substituted_audio_pct": 9.869,
+      "recordings_with_better_velocity_cosine": "87/102",
+      "source": "docs/research-native-latent-audio-specificity-2026-09-12.md:42"
+    },
+    "history_ablation_2026_09_12": {
+      "model": "BEAT2 rotation models before v5",
+      "seam_step_mse_ratio_without_generated_history": "125x-424x",
+      "source": "docs/research-beat2-history-ablation-2026-09-12.md:88-96"
+    },
+    "long_continuation_control": {
+      "japanese_own_32k": 0.017219,
+      "japanese_own_40k": 0.016882,
+      "zeggs_own_32k": 0.023404,
+      "zeggs_own_40k": 0.022716,
+      "note": "development error keeps falling while distribution/diversity metrics worsen; retained as comparison, not adopted",
+      "source": "docs/research-multisource-long-continuation-2026-09-13.md:159-169"
+    }
+  },
+  "acquisition": {
+    "japanese_archive": {
+      "pairs_acquired": 1047,
+      "recordings_retained": 1038,
+      "candidate_windows": 2618,
+      "excluded_windows": 225,
+      "retained_windows": 2393,
+      "recordings_with_windows_fit": 770,
+      "recordings_with_windows_dev": 102,
+      "speakers_declared": 1,
+      "source": "japanese-native-training-data-1/report.json; docs/research-japanese-gesture-increment-2026-09-12.md; docs/research-japanese-native-conversion-2026-09-12.md"
+    },
+    "zeggs": {
+      "recordings": 67,
+      "windows_admitted": 1948,
+      "windows_excluded": 44,
+      "styles_fit": 18,
+      "styles_dev": 19,
+      "actor": 1,
+      "source": "zeggs-body-training-data-1/report.json"
+    },
+    "trinity_ii": {
+      "pairs_acquired": 19,
+      "recordings_admitted": 18,
+      "windows_admitted": 3953,
+      "split": "days 1-2 fit, day 3 development, day 4 reserved",
+      "source": "trinity-body-training-data-1/report.json; docs/research-trinity-native-data-2026-09-13.md"
+    },
+    "beat2_english_parent": {
+      "fit_windows": 4613,
+      "fit_recordings": 334,
+      "dev_windows": 3379,
+      "dev_recordings": 231,
+      "source": "docs/beat2-rotation-capacity-adaptation-v1.md:11; docs/research-multisource-audio-dropout-2026-09-13.md:44"
+    },
+    "genea_2023": {
+      "fit_windows": 11982,
+      "dev_windows": 4506,
+      "channel_hours_nominal": 18.32,
+      "source": "docs/research-genea-diffusion-pilot-2026-09-11.md:98"
+    },
+    "beat2_chinese": {
+      "recordings_acquired": 84,
+      "recordings_windowed": 66,
+      "prepared_windows": 734,
+      "trained": false
+    },
+    "seamless_interaction": {
+      "pairs_qc": 38,
+      "trained": false
+    }
+  },
+  "model": {
+    "trainable_parameters": 14055926,
+    "backbone_copy_of_beat2_parent": 13692416,
+    "frozen_parent_parameters": 13757822,
+    "codec_parameters": {
+      "japanese": 708504,
+      "trinity": 731574
+    },
+    "trunk": "width 256 / 12 blocks / 8 heads",
+    "audio_features": "[N,52,2048] from the resident Qwen3-Omni audio tower, projected 2048->32->256",
+    "history": "30 generated frames within a reply; reset between replies",
+    "sampler": "DDIM eta=0, v-prediction, 50 steps of a 1000-step cosine schedule",
+    "training_cost_trinity_8k_to_16k": {
+      "training_seconds": 511.38,
+      "job_seconds": 585.89,
+      "peak_cuda_bytes": 9831319552
+    },
+    "live_checkpoint_sha256": "929f08dd (prefix; checkpoint-016000.pt of trinity-multisource-body-fit-1)"
+  },
+  "dialogue_examples": [
+    {
+      "id": "JA01",
+      "language": "ja",
+      "user_text": "今日は発表で失敗して、少し落ち込んでいます。",
+      "reply_text": "大変だったね。でも一歩ずつでいいから、また始めよう。",
+      "frames": 132,
+      "audio_seconds": 4.376875
+    },
+    {
+      "id": "JA02",
+      "language": "ja",
+      "user_text": "ありがとう。次は少し落ち着いて話せるようになりたいです。",
+      "reply_text": "それ、すごく前向きだよ。少しずつ慣れれば、きっと上手くいくはず。",
+      "frames": 146,
+      "audio_seconds": 4.856875
+    },
+    {
+      "id": "EN01",
+      "language": "en",
+      "user_text": "I finally finished a project I had been struggling with, and I feel really happy.",
+      "reply_text": "That's wonderful! Finishing something tough can be such a great feeling. What was the project about?",
+      "frames": 216,
+      "audio_seconds": 7.176875
+    },
+    {
+      "id": "EN02",
+      "language": "en",
+      "user_text": "Thanks! I want to celebrate, but I am also quite tired.",
+      "reply_text": "Celebrating is important—maybe just a small treat or some quiet time to relax. You've earned it!",
+      "frames": 182,
+      "audio_seconds": 6.056875
+    }
+  ],
+  "dialogue_examples_note": "Inputs were authored by the researcher for the 2026-09-14 live UI check; replies are actual Qwen3-Omni outputs (seed 17). Source: results/research-data-scale-v1/sota-live-ui-check-2/{fixture.json,reply-*.json}.",
+  "dialogue_conditions": {
+    "system_prompt": "You are a conversational partner. Reply in the same language as the user, briefly in one or two sentences. Respond to their feelings without inventing personal experiences.",
+    "thinker": "temperature 0.2, max_tokens 160, repetition_penalty 1.05, seed 17",
+    "talker": "temperature 0.9, top_k 50, seed 17, speaker aiden",
+    "limits": "history <= 3 turn pairs, text <= 1000 chars, context 2048 tokens",
+    "source": "scripts/launch_sota_live_ui_service_001.py:46; src/unified_dialogue/runtime_server.py:172-193"
+  },
+  "service": {
+    "ready_after_seconds": 273.4904838120565,
+    "max_requests_per_instance": 100,
+    "max_lifetime_seconds": 3600,
+    "gpu": "NVIDIA GeForce RTX 5090, 32,607 MiB",
+    "min_free_mib_with_body_resident": 123,
+    "source": "results/research-data-scale-v1/sota-live-ui-service-1/report.json; docs/research-sota-integration-2026-09-14.md"
+  },
+  "latency_target_planning": {
+    "utterance_end_to_first_audible_reply_median_s": 1.5,
+    "p95_s": 2.5,
+    "status": "engineering objective, not measured",
+    "source": "docs/research-unified-history-latency.md:47"
+  },
+  "review_screenshots_note": "Appendix figures only: motion-comparison.png shows a rejected content-conditioned candidate (18,048 updates) next to observed motion; source-timing.png shows an original GENEA 2023 window review. Neither shows the adopted model on a robot.",
+  "version": 3,
+  "reply_gap": {
+    "date": "2026-09-15",
+    "run": "sota-reply-gap-1",
+    "definition": {
+      "t0": "complete recorded user speech available in the client (utterance end); text turns: request submission",
+      "t1": "complete reply received from the resident service over the container loopback",
+      "t2": "reply speech WAV and body motion decoded in memory (earliest playback start)",
+      "excluded": [
+        "microphone end-of-speech detection",
+        "network relay outside the container",
+        "loudspeaker and servo start-up"
+      ],
+      "service_timing": "nested timers reported by the service (native = whole Qwen generate call; audio features; body; complete)"
+    },
+    "gap_to_playback_ready_seconds": {
+      "all": {
+        "n": 20,
+        "min": 0.779261497,
+        "median": 1.9078435185,
+        "max": 3.655103441,
+        "mean": 1.9539950368999999
+      },
+      "audio_all": {
+        "n": 16,
+        "min": 0.779261497,
+        "median": 1.9078435185,
+        "max": 3.655103441,
+        "mean": 1.949409833375
+      },
+      "audio_ja": {
+        "n": 8,
+        "min": 0.779261497,
+        "median": 1.9305749575,
+        "max": 2.450071166,
+        "mean": 1.847823319125
+      },
+      "audio_en": {
+        "n": 8,
+        "min": 1.110986204,
+        "median": 1.829814948,
+        "max": 3.655103441,
+        "mean": 2.050996347625
+      },
+      "text": {
+        "n": 4,
+        "min": 1.318976157,
+        "median": 2.0186616765,
+        "max": 2.533043894,
+        "mean": 1.972335851
+      }
+    },
+    "gap_to_response_seconds": {
+      "all": {
+        "n": 20,
+        "min": 0.779035404,
+        "median": 1.9070020570000001,
+        "max": 3.653995296,
+        "mean": 1.9532544818999997
+      },
+      "audio_all": {
+        "n": 16,
+        "min": 0.779035404,
+        "median": 1.9070020570000001,
+        "max": 3.653995296,
+        "mean": 1.9486902580625
+      },
+      "audio_ja": {
+        "n": 8,
+        "min": 0.779035404,
+        "median": 1.929588564,
+        "max": 2.449300536,
+        "mean": 1.847082764125
+      },
+      "audio_en": {
+        "n": 8,
+        "min": 1.11067905,
+        "median": 1.8291845494999999,
+        "max": 3.653995296,
+        "mean": 2.050297752
+      },
+      "text": {
+        "n": 4,
+        "min": 1.318255477,
+        "median": 2.01780295,
+        "max": 2.532184132,
+        "mean": 1.97151137725
+      }
+    },
+    "stage_seconds": {
+      "Qwen reply (text + speech)": {
+        "n": 20,
+        "min": 0.5397560489363968,
+        "median": 1.4872864075005054,
+        "max": 3.064321245998144,
+        "mean": 1.551617415295914
+      },
+      "audio features": {
+        "n": 20,
+        "min": 0.009473057929426432,
+        "median": 0.018093219958245754,
+        "max": 0.028343314304947853,
+        "mean": 0.018409203202463687
+      },
+      "body motion": {
+        "n": 20,
+        "min": 0.15698543889448047,
+        "median": 0.3090418945066631,
+        "max": 0.4817510452121496,
+        "mean": 0.3074087083339691
+      },
+      "service complete": {
+        "n": 20,
+        "min": 0.7712362189777195,
+        "median": 1.8978171423077583,
+        "max": 3.644407016225159,
+        "mean": 1.946403157012537
+      },
+      "loopback + decode overhead (t2 - complete)": {
+        "n": 20,
+        "min": 0.0033970657465816068,
+        "median": 0.007615962663454323,
+        "max": 0.011976482077172612,
+        "mean": 0.007591879887462872
+      }
+    },
+    "reply_audio_seconds": {
+      "n": 20,
+      "min": 1.816875,
+      "median": 5.376875,
+      "max": 11.336875,
+      "mean": 5.620875
+    },
+    "input_seconds": {
+      "n": 16,
+      "min": 2.45,
+      "median": 4.0,
+      "max": 6.91,
+      "mean": 3.999375
+    },
+    "per_turn": [
+      {
+        "id": "GAP-JA01",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 6.216875,
+        "motion_frames": 187,
+        "gap_to_response_seconds": 2.05137854,
+        "gap_to_playback_ready_seconds": 2.052300062,
+        "service_timing": {
+          "total_ms": 1643.1,
+          "native_seconds": 1.6477143187075853,
+          "complete_seconds": 2.041646007914096,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.018018433824181557,
+        "body_seconds": 0.30748537788167596
+      },
+      {
+        "id": "GAP-JA02",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 5.176875,
+        "motion_frames": 156,
+        "gap_to_response_seconds": 1.767475825,
+        "gap_to_playback_ready_seconds": 1.768061913,
+        "service_timing": {
+          "total_ms": 1361.7,
+          "native_seconds": 1.3664146792143583,
+          "complete_seconds": 1.758729136083275,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.017556577920913696,
+        "body_seconds": 0.30726978508755565
+      },
+      {
+        "id": "GAP-JA03",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 5.896875,
+        "motion_frames": 177,
+        "gap_to_response_seconds": 1.963513704,
+        "gap_to_playback_ready_seconds": 1.964298705,
+        "service_timing": {
+          "total_ms": 1554.1,
+          "native_seconds": 1.5586209669709206,
+          "complete_seconds": 1.9535734299570322,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.018105545081198215,
+        "body_seconds": 0.30880355602130294
+      },
+      {
+        "id": "GAP-JA04",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 5.576875,
+        "motion_frames": 168,
+        "gap_to_response_seconds": 1.95195399,
+        "gap_to_playback_ready_seconds": 1.952906173,
+        "service_timing": {
+          "total_ms": 1462.3,
+          "native_seconds": 1.466967485845089,
+          "complete_seconds": 1.9427713160403073,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.017949592787772417,
+        "body_seconds": 0.37368588615208864
+      },
+      {
+        "id": "GAP-JA05",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 7.016875,
+        "motion_frames": 211,
+        "gap_to_response_seconds": 2.449300536,
+        "gap_to_playback_ready_seconds": 2.450071166,
+        "service_timing": {
+          "total_ms": 2035.7,
+          "native_seconds": 2.041353375185281,
+          "complete_seconds": 2.4380946839228272,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.018763423897325993,
+        "body_seconds": 0.30928023299202323
+      },
+      {
+        "id": "GAP-JA06",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 5.096875,
+        "motion_frames": 153,
+        "gap_to_response_seconds": 1.907223138,
+        "gap_to_playback_ready_seconds": 1.908243742,
+        "service_timing": {
+          "total_ms": 1487.2,
+          "native_seconds": 1.4915530318394303,
+          "complete_seconds": 1.8980945139192045,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.028343314304947853,
+        "body_seconds": 0.3085046927444637
+      },
+      {
+        "id": "GAP-JA07",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 5.816875,
+        "motion_frames": 175,
+        "gap_to_response_seconds": 1.906780976,
+        "gap_to_playback_ready_seconds": 1.907443295,
+        "service_timing": {
+          "total_ms": 1500.3,
+          "native_seconds": 1.505154478829354,
+          "complete_seconds": 1.8975397706963122,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.018097565043717623,
+        "body_seconds": 0.3060024892911315
+      },
+      {
+        "id": "GAP-JA08",
+        "language": "ja",
+        "input": "audio",
+        "input_seconds": 4.0,
+        "reply_audio_seconds": 1.816875,
+        "motion_frames": 55,
+        "gap_to_response_seconds": 0.779035404,
+        "gap_to_playback_ready_seconds": 0.779261497,
+        "service_timing": {
+          "total_ms": 535.2,
+          "native_seconds": 0.5397560489363968,
+          "complete_seconds": 0.7712362189777195,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.009473057929426432,
+        "body_seconds": 0.15698543889448047
+      },
+      {
+        "id": "GAP-EN01",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 2.45,
+        "reply_audio_seconds": 4.856875,
+        "motion_frames": 146,
+        "gap_to_response_seconds": 1.75933733,
+        "gap_to_playback_ready_seconds": 1.760008909,
+        "service_timing": {
+          "total_ms": 1350.0,
+          "native_seconds": 1.352553472854197,
+          "complete_seconds": 1.754768478218466,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.017760781105607748,
+        "body_seconds": 0.3166552949696779
+      },
+      {
+        "id": "GAP-EN02",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 3.02,
+        "reply_audio_seconds": 4.296875,
+        "motion_frames": 129,
+        "gap_to_response_seconds": 1.713924196,
+        "gap_to_playback_ready_seconds": 1.714347222,
+        "service_timing": {
+          "total_ms": 1188.4,
+          "native_seconds": 1.1906973193399608,
+          "complete_seconds": 1.7093084431253374,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.027049077209085226,
+        "body_seconds": 0.4223057981580496
+      },
+      {
+        "id": "GAP-EN03",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 6.36,
+        "reply_audio_seconds": 11.336875,
+        "motion_frames": 341,
+        "gap_to_response_seconds": 3.653995296,
+        "gap_to_playback_ready_seconds": 3.655103441,
+        "service_timing": {
+          "total_ms": 3060.9,
+          "native_seconds": 3.064321245998144,
+          "complete_seconds": 3.644407016225159,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.026811163872480392,
+        "body_seconds": 0.4817510452121496
+      },
+      {
+        "id": "GAP-EN04",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 3.74,
+        "reply_audio_seconds": 9.816875,
+        "motion_frames": 295,
+        "gap_to_response_seconds": 3.084367655,
+        "gap_to_playback_ready_seconds": 3.085669593,
+        "service_timing": {
+          "total_ms": 2497.2,
+          "native_seconds": 2.499986327253282,
+          "complete_seconds": 3.0771977682597935,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.02657914999872446,
+        "body_seconds": 0.48050345899537206
+      },
+      {
+        "id": "GAP-EN05",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 6.91,
+        "reply_audio_seconds": 3.016875,
+        "motion_frames": 91,
+        "gap_to_response_seconds": 1.11067905,
+        "gap_to_playback_ready_seconds": 1.110986204,
+        "service_timing": {
+          "total_ms": 858.7,
+          "native_seconds": 0.8620040155947208,
+          "complete_seconds": 1.1037795566953719,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.009673201944679022,
+        "body_seconds": 0.16524826176464558
+      },
+      {
+        "id": "GAP-EN06",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 4.21,
+        "reply_audio_seconds": 5.016875,
+        "motion_frames": 151,
+        "gap_to_response_seconds": 1.899031769,
+        "gap_to_playback_ready_seconds": 1.899620987,
+        "service_timing": {
+          "total_ms": 1480.4,
+          "native_seconds": 1.4830197831615806,
+          "complete_seconds": 1.8924305490218103,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.01880103489384055,
+        "body_seconds": 0.3228315603919327
+      },
+      {
+        "id": "GAP-EN07",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 2.52,
+        "reply_audio_seconds": 3.096875,
+        "motion_frames": 93,
+        "gap_to_response_seconds": 1.11934063,
+        "gap_to_playback_ready_seconds": 1.119663574,
+        "service_timing": {
+          "total_ms": 872.0,
+          "native_seconds": 0.8740054699592292,
+          "complete_seconds": 1.115420165937394,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.010037575848400593,
+        "body_seconds": 0.1658195899799466
+      },
+      {
+        "id": "GAP-EN08",
+        "language": "en",
+        "input": "audio",
+        "input_seconds": 2.78,
+        "reply_audio_seconds": 5.656875,
+        "motion_frames": 170,
+        "gap_to_response_seconds": 2.06170609,
+        "gap_to_playback_ready_seconds": 2.062570851,
+        "service_timing": {
+          "total_ms": 1649.0,
+          "native_seconds": 1.6511637479998171,
+          "complete_seconds": 2.055742239113897,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.019435614347457886,
+        "body_seconds": 0.3172988062724471
+      },
+      {
+        "id": "GAP-TEXT-JA01",
+        "language": "ja",
+        "input": "text",
+        "input_seconds": null,
+        "reply_audio_seconds": 4.936875,
+        "motion_frames": 149,
+        "gap_to_response_seconds": 1.730466437,
+        "gap_to_playback_ready_seconds": 1.731090725,
+        "service_timing": {
+          "total_ms": 1332.0,
+          "native_seconds": 1.332392814103514,
+          "complete_seconds": 1.7276936592534184,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.018088874872773886,
+        "body_seconds": 0.31063470570370555
+      },
+      {
+        "id": "GAP-TEXT-JA02",
+        "language": "ja",
+        "input": "text",
+        "input_seconds": null,
+        "reply_audio_seconds": 7.736875,
+        "motion_frames": 233,
+        "gap_to_response_seconds": 2.532184132,
+        "gap_to_playback_ready_seconds": 2.533043894,
+        "service_timing": {
+          "total_ms": 2130.1,
+          "native_seconds": 2.130587289109826,
+          "complete_seconds": 2.5283735399134457,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.019596197176724672,
+        "body_seconds": 0.30709767900407314
+      },
+      {
+        "id": "GAP-TEXT-EN01",
+        "language": "en",
+        "input": "text",
+        "input_seconds": null,
+        "reply_audio_seconds": 6.056875,
+        "motion_frames": 182,
+        "gap_to_response_seconds": 2.305139463,
+        "gap_to_playback_ready_seconds": 2.306232628,
+        "service_timing": {
+          "total_ms": 1894.7,
+          "native_seconds": 1.8951487271115184,
+          "complete_seconds": 2.301732517313212,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.018015125300735235,
+        "body_seconds": 0.31989352311939
+      },
+      {
+        "id": "GAP-TEXT-EN02",
+        "language": "en",
+        "input": "text",
+        "input_seconds": null,
+        "reply_audio_seconds": 3.976875,
+        "motion_frames": 120,
+        "gap_to_response_seconds": 1.318255477,
+        "gap_to_playback_ready_seconds": 1.318976157,
+        "service_timing": {
+          "total_ms": 1078.5,
+          "native_seconds": 1.0789337079040706,
+          "complete_seconds": 1.3155241296626627,
+          "warmup": false
+        },
+        "audio_feature_seconds": 0.010028756689280272,
+        "body_seconds": 0.16011698404327035
+      }
+    ],
+    "ready_after_seconds": 278.05090135894716,
+    "source_sha256": {
+      "gap-measurement/report.json": "26ac7b7c062dcc1b042b1c2341ab5cfdbc3cd7d63a34985f3e4cf954ee9a6bee",
+      "collection.json": "f19f3f61c6c811d3b4be3b5a41d99bc2ed8994d8970f75a9ca7b400cf73e50ad"
+    },
+    "excluded": [
+      "microphone end-of-speech detection",
+      "network hop between browser/robot PC and the GPU server",
+      "loudspeaker and servo start-up"
+    ],
+    "gap_vs_reply_length": {
+      "intercept_seconds": 0.2818570216804954,
+      "slope_seconds_per_reply_second": 0.29748713771779384,
+      "n": 20,
+      "residual_sd": 0.09876644216563209
+    }
+  },
+  "stream_gap": {
+    "date": "2026-09-15",
+    "run": "sota-stream-gap-1",
+    "ready_after_seconds": 278.00732286227867,
+    "definition": {
+      "true_end": "end of the last speech frame of the recording (simulated microphone at real speed); text turns: submission",
+      "detect": "energy voice-activity detector fires after a 250 ms hangover (push-to-talk turns: at the true end)",
+      "first_audio": "first reply speech chunk received",
+      "playback": "first speech chunk and first body window both received (playback could start)",
+      "done": "all speech and motion received (standard turns also include the batch reference and step variants computed for the quality comparison)"
+    },
+    "groups": {
+      "standard_audio": {
+        "n": 16,
+        "true_end_to_first_audio_s": {
+          "n": 16,
+          "min": 0.38028248492628336,
+          "median": 0.39439695747569203,
+          "max": 0.40596212912350893,
+          "mean": 0.39378017745912075
+        },
+        "true_end_to_playback_s": {
+          "n": 16,
+          "min": 0.6234282562509179,
+          "median": 0.8399368966929615,
+          "max": 1.100570865906775,
+          "mean": 0.842879166797502
+        },
+        "true_end_to_done_s": {
+          "n": 16,
+          "min": 1.0683105769567192,
+          "median": 1.781197661999613,
+          "max": 2.7441977825947106,
+          "mean": 1.7812977003632113
+        },
+        "send_to_first_audio_s": {
+          "n": 16,
+          "min": 0.1402939297258854,
+          "median": 0.15439398400485516,
+          "max": 0.16596155986189842,
+          "mean": 0.15378015706664883
+        },
+        "send_to_playback_s": {
+          "n": 16,
+          "min": 0.38343854807317257,
+          "median": 0.5999166574329138,
+          "max": 0.8605722631327808,
+          "mean": 0.60287914640503
+        },
+        "reply_audio_seconds": {
+          "n": 16,
+          "min": 2.696875,
+          "median": 5.216875,
+          "max": 10.376875,
+          "mean": 5.616875
+        },
+        "audio_stall_s_max": 0.0,
+        "motion_stall_s_max": 0.0,
+        "vad_detection_latency_s": {
+          "n": 16,
+          "min": 0.23999999999999977,
+          "median": 0.2400000000000002,
+          "max": 0.2400000000000002,
+          "mean": 0.24000000000000016
+        },
+        "config": {
+          "steps": 16,
+          "first_window_seconds": 1.0,
+          "prompt_variant": "standard",
+          "max_tokens": 160
+        }
+      },
+      "standard_text": {
+        "n": 4,
+        "true_end_to_first_audio_s": {
+          "n": 4,
+          "min": 0.1318492228165269,
+          "median": 0.13464361359365284,
+          "max": 0.13726264284923673,
+          "mean": 0.13459977321326733
+        },
+        "true_end_to_playback_s": {
+          "n": 4,
+          "min": 0.4927658229134977,
+          "median": 0.6325513136107475,
+          "max": 0.8058851789683104,
+          "mean": 0.6409384072758257
+        },
+        "true_end_to_done_s": {
+          "n": 4,
+          "min": 0.9457571627572179,
+          "median": 1.0965601210482419,
+          "max": 1.2851575389504433,
+          "mean": 1.1060087359510362
+        },
+        "send_to_first_audio_s": {
+          "n": 4,
+          "min": 0.1318492228165269,
+          "median": 0.13464361359365284,
+          "max": 0.13726264284923673,
+          "mean": 0.13459977321326733
+        },
+        "send_to_playback_s": {
+          "n": 4,
+          "min": 0.4927658229134977,
+          "median": 0.6325513136107475,
+          "max": 0.8058851789683104,
+          "mean": 0.6409384072758257
+        },
+        "reply_audio_seconds": {
+          "n": 4,
+          "min": 4.296875,
+          "median": 5.656875,
+          "max": 7.896875,
+          "mean": 5.876875
+        },
+        "audio_stall_s_max": 0.0,
+        "motion_stall_s_max": 0.0,
+        "vad_detection_latency_s": {
+          "n": 4,
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "config": {
+          "steps": 16,
+          "first_window_seconds": 1.0,
+          "prompt_variant": "standard",
+          "max_tokens": 160
+        }
+      },
+      "short_prompt_audio": {
+        "n": 8,
+        "true_end_to_first_audio_s": {
+          "n": 8,
+          "min": 0.36224640207365155,
+          "median": 0.39699217746965587,
+          "max": 0.40767866326496005,
+          "mean": 0.3904274898231961
+        },
+        "true_end_to_playback_s": {
+          "n": 8,
+          "min": 0.5466650961898267,
+          "median": 0.8317815293557942,
+          "max": 1.0797832920216024,
+          "mean": 0.8175141828251071
+        },
+        "true_end_to_done_s": {
+          "n": 8,
+          "min": 0.5472949938848615,
+          "median": 0.9113276929128915,
+          "max": 1.2610667301341891,
+          "mean": 0.8852759471046738
+        },
+        "send_to_first_audio_s": {
+          "n": 8,
+          "min": 0.12225204985588789,
+          "median": 0.15699106478132308,
+          "max": 0.16768338903784752,
+          "mean": 0.15043109317775816
+        },
+        "send_to_playback_s": {
+          "n": 8,
+          "min": 0.30667074397206306,
+          "median": 0.5917804166674614,
+          "max": 0.839787804055959,
+          "mean": 0.5775177861796692
+        },
+        "reply_audio_seconds": {
+          "n": 8,
+          "min": 2.056875,
+          "median": 5.176875,
+          "max": 8.376875,
+          "mean": 4.966875
+        },
+        "audio_stall_s_max": 0.0,
+        "motion_stall_s_max": 0.0,
+        "vad_detection_latency_s": {
+          "n": 8,
+          "min": 0.23999999999999977,
+          "median": 0.2400000000000002,
+          "max": 0.2400000000000002,
+          "mean": 0.24000000000000016
+        },
+        "config": {
+          "steps": 16,
+          "first_window_seconds": 1.0,
+          "prompt_variant": "short",
+          "max_tokens": 80
+        }
+      },
+      "full_window_50_steps_audio": {
+        "n": 4,
+        "true_end_to_first_audio_s": {
+          "n": 4,
+          "min": 0.38368007401004434,
+          "median": 0.3924396650400013,
+          "max": 0.40395780373364687,
+          "mean": 0.39312930195592344
+        },
+        "true_end_to_playback_s": {
+          "n": 4,
+          "min": 0.8786918222904205,
+          "median": 0.9344354444183409,
+          "max": 1.0326874083839357,
+          "mean": 0.9450625298777595
+        },
+        "true_end_to_done_s": {
+          "n": 4,
+          "min": 1.043277154210955,
+          "median": 1.1023461513686925,
+          "max": 1.2965197181329131,
+          "mean": 1.1361222937703133
+        },
+        "send_to_first_audio_s": {
+          "n": 4,
+          "min": 0.14368273271247745,
+          "median": 0.15244626044295728,
+          "max": 0.16396966390311718,
+          "mean": 0.1531362293753773
+        },
+        "send_to_playback_s": {
+          "n": 4,
+          "min": 0.6386985331773758,
+          "median": 0.6944446144625545,
+          "max": 0.7926900670863688,
+          "mean": 0.7050694572972134
+        },
+        "reply_audio_seconds": {
+          "n": 4,
+          "min": 4.376875,
+          "median": 4.896875,
+          "max": 6.056875,
+          "mean": 5.056875
+        },
+        "audio_stall_s_max": 0.0,
+        "motion_stall_s_max": 0.0,
+        "vad_detection_latency_s": {
+          "n": 4,
+          "min": 0.2400000000000002,
+          "median": 0.2400000000000002,
+          "max": 0.2400000000000002,
+          "mean": 0.2400000000000002
+        },
+        "config": {
+          "steps": 50,
+          "first_window_seconds": 4.0,
+          "prompt_variant": "standard",
+          "max_tokens": 160
+        }
+      },
+      "wsl_tunnel_push_to_talk": {
+        "n": 4,
+        "true_end_to_first_audio_s": {
+          "n": 4,
+          "min": 0.14819122396875173,
+          "median": 0.15738707850687206,
+          "max": 0.171355584054254,
+          "mean": 0.15858024125918746
+        },
+        "true_end_to_playback_s": {
+          "n": 4,
+          "min": 0.40104892605450004,
+          "median": 0.6665250575169921,
+          "max": 0.7890921819489449,
+          "mean": 0.6307978057593573
+        },
+        "true_end_to_done_s": {
+          "n": 4,
+          "min": 0.40181109798140824,
+          "median": 0.7336091810138896,
+          "max": 0.8612376449164003,
+          "mean": 0.6825667762313969
+        },
+        "send_to_first_audio_s": {
+          "n": 4,
+          "min": 0.14810353191569448,
+          "median": 0.15730576153146103,
+          "max": 0.17127021204214543,
+          "mean": 0.1584963167551905
+        },
+        "send_to_playback_s": {
+          "n": 4,
+          "min": 0.4009657740825787,
+          "median": 0.6664385254844092,
+          "max": 0.7890126999700442,
+          "mean": 0.6307138812553603
+        },
+        "reply_audio_seconds": {
+          "n": 4,
+          "min": 2.696875,
+          "median": 6.096875000000001,
+          "max": 7.496875,
+          "mean": 5.596875
+        },
+        "audio_stall_s_max": 0.0,
+        "motion_stall_s_max": 0.0,
+        "vad_detection_latency_s": {
+          "n": 4,
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "config": {
+          "steps": 16,
+          "first_window_seconds": 1.0,
+          "prompt_variant": "standard",
+          "max_tokens": 160
+        }
+      }
+    },
+    "service_timing_standard_audio": {
+      "first_text": {
+        "n": 16,
+        "min": 0.0427,
+        "median": 0.048600000000000004,
+        "max": 0.0547,
+        "mean": 0.04833125
+      },
+      "first_audio": {
+        "n": 16,
+        "min": 0.1374,
+        "median": 0.15105000000000002,
+        "max": 0.1622,
+        "mean": 0.15098125
+      },
+      "first_motion": {
+        "n": 16,
+        "min": 0.3797,
+        "median": 0.59645,
+        "max": 0.8573,
+        "mean": 0.5992999999999999
+      },
+      "playback_ready": {
+        "n": 16,
+        "min": 0.3797,
+        "median": 0.59645,
+        "max": 0.8573,
+        "mean": 0.5992999999999999
+      },
+      "audio_done": {
+        "n": 16,
+        "min": 0.3811,
+        "median": 0.6264000000000001,
+        "max": 1.098,
+        "mean": 0.65813125
+      },
+      "motion_done": {
+        "n": 16,
+        "min": 0.3816,
+        "median": 0.69015,
+        "max": 1.1618,
+        "mean": 0.70261875
+      }
+    },
+    "first_window_body_seconds_16_steps": {
+      "n": 16,
+      "min": 0.05208621779456735,
+      "median": 0.15243076789192855,
+      "max": 0.33668485982343554,
+      "mean": 0.16649037518072873
+    },
+    "first_window_body_seconds_50_steps": {
+      "n": 4,
+      "min": 0.15299401339143515,
+      "median": 0.15702604968100786,
+      "max": 0.17973512038588524,
+      "mean": 0.16169530828483403
+    },
+    "playback_vs_reply_length_standard_audio": {
+      "intercept_seconds": 0.2567466647255129,
+      "slope_seconds_per_reply_second": 0.061623675385248405,
+      "n": 16
+    },
+    "short_prompt_pairs": [
+      {
+        "input": "JA01",
+        "standard_reply_seconds": 2.696875,
+        "short_reply_seconds": 5.016875,
+        "standard_text": "人工知能について、何かお考えですか？",
+        "short_text": "人工知能について、あなたがどう感じているか教えてもらえますか？"
+      },
+      {
+        "input": "JA02",
+        "standard_reply_seconds": 4.856875,
+        "short_reply_seconds": 2.056875,
+        "standard_text": "会社のことも大変そうですね。何か具体的に困っていることはありますか？",
+        "short_text": "会社もその..."
+      },
+      {
+        "input": "JA03",
+        "standard_reply_seconds": 4.136875,
+        "short_reply_seconds": 4.136875,
+        "standard_text": "中小企業って一人で全部やる感じ？大変だね。",
+        "short_text": "中小企業の経営って、一人で全部やってる感じがするよね。"
+      },
+      {
+        "input": "JA04",
+        "standard_reply_seconds": 9.336875,
+        "short_reply_seconds": 5.336875,
+        "standard_text": "人工知能が進化すると、日常生活の多くの面で便利になる一方で、人間の仕事やプライバシーにも影響が出る可能性がありますね。",
+        "short_text": "人工知能の進化は、私たちの生活に大きな変化をもたらしていますね。"
+      },
+      {
+        "input": "EN01",
+        "standard_reply_seconds": 5.656875,
+        "short_reply_seconds": 2.536875,
+        "standard_text": "Got it! I'll keep my replies short and clear—no extra fluff. What's on your mind?",
+        "short_text": "Got it, I'll keep my lights low."
+      },
+      {
+        "input": "EN02",
+        "standard_reply_seconds": 5.896875,
+        "short_reply_seconds": 5.416875,
+        "standard_text": "It sounds like you're not sure about something work-related. What specifically would you like to talk about?",
+        "short_text": "It sounds like you're feeling uncertain about something at work. Want to talk more about it?"
+      },
+      {
+        "input": "EN03",
+        "standard_reply_seconds": 10.376875,
+        "short_reply_seconds": 6.856875,
+        "standard_text": "Yeah, even with our fastest tech, reaching those stars would take an unimaginable amount of time. It really puts the scale of space into perspective.",
+        "short_text": "Yeah, even with our fastest tech, reaching those stars would take way longer than any of us live."
+      },
+      {
+        "input": "EN04",
+        "standard_reply_seconds": 9.656875,
+        "short_reply_seconds": 8.376875,
+        "standard_text": "Yeah, I did watch Interstellar. It's an amazing film with stunning visuals and a powerful story. What did you think of it?",
+        "short_text": "Yes, I have watched Interstellar. It's an amazing film with great visuals and a deep story about space and time. What did you think of it?"
+      }
+    ],
+    "quality_comparison": {
+      "replies": 20,
+      "reference_scale_msd": {
+        "n": 20,
+        "min": 0.000448305085668793,
+        "median": 0.0019422784566340324,
+        "max": 0.003400664167260628,
+        "mean": 0.0019032426727312389
+      },
+      "reference_seam_max": {
+        "n": 20,
+        "min": 0.0,
+        "median": 0.0715760886669159,
+        "max": 0.2403099536895752,
+        "mean": 0.09556458033621311
+      },
+      "full_s50": {
+        "mse_vs_reference": {
+          "n": 16,
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "mse_vs_reference_window0": {
+          "n": 16,
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "max_abs_diff": {
+          "n": 16,
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "velocity_ratio_vs_reference": {
+          "n": 16,
+          "min": 1.0,
+          "median": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        },
+        "seam_max": {
+          "n": 16,
+          "min": 0.0,
+          "median": 0.0715760886669159,
+          "max": 0.2403099536895752,
+          "mean": 0.09469519276171923
+        },
+        "relative_mse_median": 0.0
+      },
+      "full_s10": {
+        "mse_vs_reference": {
+          "n": 16,
+          "min": 1.1370725383732764e-05,
+          "median": 8.098784763313022e-05,
+          "max": 0.00014117097569581546,
+          "mean": 7.209836026797672e-05
+        },
+        "mse_vs_reference_window0": {
+          "n": 16,
+          "min": 1.1370725383732764e-05,
+          "median": 6.943020250076926e-05,
+          "max": 0.0001425621323983169,
+          "mean": 6.89451566076124e-05
+        },
+        "max_abs_diff": {
+          "n": 16,
+          "min": 0.024225234985351562,
+          "median": 0.09105530381202698,
+          "max": 0.187252938747406,
+          "mean": 0.09048529900610447
+        },
+        "velocity_ratio_vs_reference": {
+          "n": 16,
+          "min": 0.6856295351754995,
+          "median": 0.7815721236361759,
+          "max": 0.8330818284288894,
+          "mean": 0.7756807117462106
+        },
+        "seam_max": {
+          "n": 16,
+          "min": 0.0,
+          "median": 0.060488827526569366,
+          "max": 0.19961780309677124,
+          "mean": 0.07873869873583317
+        },
+        "relative_mse_median": 0.04169734126253046
+      },
+      "stream": {
+        "mse_vs_reference": {
+          "n": 20,
+          "min": 0.0005164723434929445,
+          "median": 0.00157944758098388,
+          "max": 0.004512204001794447,
+          "mean": 0.001774754296183519
+        },
+        "mse_vs_reference_window0": {
+          "n": 20,
+          "min": 0.0007844005513108921,
+          "median": 0.0019174303988162295,
+          "max": 0.006143860698941659,
+          "mean": 0.0022512007152813082
+        },
+        "max_abs_diff": {
+          "n": 20,
+          "min": 0.23173776268959045,
+          "median": 0.4210229367017746,
+          "max": 0.7041217088699341,
+          "mean": 0.4263109954074025
+        },
+        "velocity_ratio_vs_reference": {
+          "n": 20,
+          "min": 0.5905234398962896,
+          "median": 0.8303578672701133,
+          "max": 1.0324252879765807,
+          "mean": 0.811909776479151
+        },
+        "seam_max": {
+          "n": 20,
+          "min": 0.0,
+          "median": 0.05026093125343323,
+          "max": 0.1811504065990448,
+          "mean": 0.07598670450970531
+        },
+        "relative_mse_median": 0.813193172991818
+      }
+    },
+    "startup_note": "One CUDA caching-allocator OOM warning (377 MB request, 361 MB free) was logged during stage-2 autotuning at start-up; initialization, warm-up and all 36 turns then succeeded. GPU headroom remains thin.",
+    "source_sha256": {
+      "collection.json": "dd5ac38419082be00d267300518fc38edffacb38521162166d37fbea3cff41e8",
+      "run/host-measurement/report.json": "5c9d5ef31856d63d65ec6d877273cbff9e8bee15feed16eddffc62435ccf4b01",
+      "wsl-measurement/report.json": "b92b3533c776fe6e77041e9046fed69ccce20b5369cd2cb65245151e40567aa3",
+      "quality-comparison.json": "960d9ecc6ed0ec8da22de19b9e634f2805561cb20d6a3fb950daec47e60d474f"
+    },
+    "excluded": [
+      "loudspeaker and servo start-up",
+      "a real microphone and room acoustics (simulated microphone from recordings)",
+      "the robot PC to server LAN hop (SSH tunnel used as stand-in for 4 turns)"
+    ],
+    "dev_check": {
+      "date": "2026-09-15",
+      "runs": [
+        "sota-dev-eval-3",
+        "sota-dev-eval-4"
+      ],
+      "metric": "raw rotation-6D MSE per window, mean per recording, mean over recordings (as the training milestone evaluation); velocity-direction cosine; step-RMS ratio; first-window values reported separately",
+      "history": "generated (previous generated window suffix) where the data marks history as present; reset at recording start",
+      "populations": {
+        "en": "Trinity II development windows (1,389 windows, 6 recordings)",
+        "ja": "Japanese archive development windows (267 windows, 102 recordings)"
+      },
+      "ready_after_seconds": 256.71384295495227,
+      "configurations_run": 18,
+      "service_first_window_audio_seconds": {
+        "n": 28,
+        "min": 2.056875,
+        "median": 2.296875,
+        "max": 2.296875,
+        "note": "reply audio available when the streamed service scheduled its first body window (threshold 1 s; the first speech chunk carried this much), from sota-stream-gap-1 host records"
+      },
+      "baseline_repeat": {
+        "ja": {
+          "main": 0.017815108091562722,
+          "follow_up": 0.017815108091562722,
+          "identical": true
+        },
+        "en": {
+          "main": 0.02186045759150011,
+          "follow_up": 0.02186045759150011,
+          "identical": true
+        }
+      },
+      "rows": [
+        {
+          "name": "full-s50",
+          "role": "baseline: complete audio, 50 steps (the batch routine)",
+          "run": "sota-dev-eval-3",
+          "ja": {
+            "steps": 50,
+            "first_window_seconds": null,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.017815108091562722,
+            "velocity_cosine": 0.06185331793053488,
+            "step_rms_ratio": 1.2323224315254715,
+            "first_window_raw_mse": 0.016282741995106747,
+            "first_window_velocity_cosine": 0.06355543170350761,
+            "first_window_step_rms_ratio": 1.2804996462834661,
+            "seam_max_median": 0.05503931641578674,
+            "body_seconds": 42.6452630283311,
+            "encode_seconds": 2.0954445297829807,
+            "relative_change": 0.0,
+            "first_window_relative_change": 0.0,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 0,
+            "mse_ratio_median": 1.0,
+            "first_window_mse_ratio_median": 1.0
+          },
+          "en": {
+            "steps": 50,
+            "first_window_seconds": null,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.02186045759150011,
+            "velocity_cosine": 0.005619506880285009,
+            "step_rms_ratio": 0.9136677233134786,
+            "first_window_raw_mse": 0.012451765300814157,
+            "first_window_velocity_cosine": 0.024635638012955135,
+            "first_window_step_rms_ratio": 2.9869356111826497,
+            "seam_max_median": 0.14493145793676376,
+            "body_seconds": 230.55830555409193,
+            "encode_seconds": 10.937618777155876,
+            "relative_change": 0.0,
+            "first_window_relative_change": 0.0,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 0,
+            "mse_ratio_median": 1.0,
+            "first_window_mse_ratio_median": 1.0
+          }
+        },
+        {
+          "name": "stream-s16-w1",
+          "role": "service setting: 16 steps, first window of each recording from 1 s of audio",
+          "run": "sota-dev-eval-3",
+          "ja": {
+            "steps": 16,
+            "first_window_seconds": 1.0,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.01819079646116888,
+            "velocity_cosine": 0.03592028967951499,
+            "step_rms_ratio": 0.8405442985740672,
+            "first_window_raw_mse": 0.017942144430247855,
+            "first_window_velocity_cosine": 0.014177678500495639,
+            "first_window_step_rms_ratio": 0.7350066309728546,
+            "seam_max_median": 0.052418991923332214,
+            "body_seconds": 14.103998638223857,
+            "encode_seconds": 2.066534749697894,
+            "relative_change": 0.02108818917489952,
+            "first_window_relative_change": 0.10191173179798518,
+            "recordings_worse": 51,
+            "first_window_recordings_worse": 65,
+            "mse_ratio_median": 1.0043300698417374,
+            "first_window_mse_ratio_median": 1.06772922113743
+          },
+          "en": {
+            "steps": 16,
+            "first_window_seconds": 1.0,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.02071628175552646,
+            "velocity_cosine": 0.006097366410451968,
+            "step_rms_ratio": 0.7753949970258036,
+            "first_window_raw_mse": 0.019196375174667255,
+            "first_window_velocity_cosine": 0.006505584441794568,
+            "first_window_step_rms_ratio": 4.087338579123555,
+            "seam_max_median": 0.12417573109269142,
+            "body_seconds": 77.05494516249746,
+            "encode_seconds": 10.797585889231414,
+            "relative_change": -0.05233997647050781,
+            "first_window_relative_change": 0.5416589303536024,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 6,
+            "mse_ratio_median": 0.9477555025337245,
+            "first_window_mse_ratio_median": 1.6751260322268702
+          }
+        },
+        {
+          "name": "stream-s16-w2",
+          "role": "lower bound of what the service actually had: 16 steps, first window from 2.0 s of audio",
+          "run": "sota-dev-eval-4",
+          "ja": {
+            "steps": 16,
+            "first_window_seconds": 2.0,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.017911133705982105,
+            "velocity_cosine": 0.05219498640028714,
+            "step_rms_ratio": 0.9684369874937595,
+            "first_window_raw_mse": 0.01697677346346151,
+            "first_window_velocity_cosine": 0.042502335010885996,
+            "first_window_step_rms_ratio": 0.9325594459097232,
+            "seam_max_median": 0.05120128393173218,
+            "body_seconds": 13.798013994004577,
+            "encode_seconds": 2.0713109020143747,
+            "relative_change": 0.0053901224694146155,
+            "first_window_relative_change": 0.042623746575566335,
+            "recordings_worse": 56,
+            "first_window_recordings_worse": 59,
+            "mse_ratio_median": 1.0062928164060678,
+            "first_window_mse_ratio_median": 1.056208746038818
+          },
+          "en": {
+            "steps": 16,
+            "first_window_seconds": 2.0,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.020710406197125584,
+            "velocity_cosine": 0.006193773396097097,
+            "step_rms_ratio": 0.7708441044398279,
+            "first_window_raw_mse": 0.014578666005311318,
+            "first_window_velocity_cosine": 0.027965213304839653,
+            "first_window_step_rms_ratio": 2.998683609324407,
+            "seam_max_median": 0.1240578144788742,
+            "body_seconds": 76.80179522698745,
+            "encode_seconds": 10.795633762143552,
+            "relative_change": -0.052608752106895196,
+            "first_window_relative_change": 0.17081117842448368,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 4,
+            "mse_ratio_median": 0.9463636568690869,
+            "first_window_mse_ratio_median": 1.1042976324963494
+          }
+        },
+        {
+          "name": "stream-s16-w2.3",
+          "role": "service as measured: 16 steps, first window from 2.3 s of audio (the first speech chunk carried 2.06-2.30 s)",
+          "run": "sota-dev-eval-4",
+          "ja": {
+            "steps": 16,
+            "first_window_seconds": 2.3,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.017728704842072805,
+            "velocity_cosine": 0.05534783939647143,
+            "step_rms_ratio": 1.0203286233277231,
+            "first_window_raw_mse": 0.016708616842875283,
+            "first_window_velocity_cosine": 0.050279499362676,
+            "first_window_step_rms_ratio": 1.0007172858847533,
+            "seam_max_median": 0.050098568201065063,
+            "body_seconds": 14.057910107076168,
+            "encode_seconds": 2.077474792022258,
+            "relative_change": -0.004849998610496065,
+            "first_window_relative_change": 0.02615498347247147,
+            "recordings_worse": 51,
+            "first_window_recordings_worse": 50,
+            "mse_ratio_median": 1.00079073546879,
+            "first_window_mse_ratio_median": 0.9981309700050516
+          },
+          "en": {
+            "steps": 16,
+            "first_window_seconds": 2.3,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.020677768796311204,
+            "velocity_cosine": 0.006247851571345755,
+            "step_rms_ratio": 0.770909727231042,
+            "first_window_raw_mse": 0.013310428522248058,
+            "first_window_velocity_cosine": 0.03166336724317498,
+            "first_window_step_rms_ratio": 3.0312847731409707,
+            "seam_max_median": 0.12405787408351898,
+            "body_seconds": 77.51991613674909,
+            "encode_seconds": 10.855232297442853,
+            "relative_change": -0.054101740104871565,
+            "first_window_relative_change": 0.06895915564500377,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 2,
+            "mse_ratio_median": 0.9455068092352201,
+            "first_window_mse_ratio_median": 0.9123884996538101
+          }
+        },
+        {
+          "name": "full-s16",
+          "role": "step count alone: complete audio, 16 steps",
+          "run": "sota-dev-eval-3",
+          "ja": {
+            "steps": 16,
+            "first_window_seconds": null,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.017562937390553174,
+            "velocity_cosine": 0.06854033657292227,
+            "step_rms_ratio": 1.1018044153100621,
+            "first_window_raw_mse": 0.015985453306679363,
+            "first_window_velocity_cosine": 0.07064276487674416,
+            "first_window_step_rms_ratio": 1.1357847170079518,
+            "seam_max_median": 0.05152231454849243,
+            "body_seconds": 13.980138497892767,
+            "encode_seconds": 2.0463241869583726,
+            "relative_change": -0.014154879089898875,
+            "first_window_relative_change": -0.018257900820188966,
+            "recordings_worse": 14,
+            "first_window_recordings_worse": 16,
+            "mse_ratio_median": 0.9863940849766828,
+            "first_window_mse_ratio_median": 0.9845638030458077
+          },
+          "en": {
+            "steps": 16,
+            "first_window_seconds": null,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.02062578789161668,
+            "velocity_cosine": 0.00630042183130747,
+            "step_rms_ratio": 0.7688316112504846,
+            "first_window_raw_mse": 0.012112394482986004,
+            "first_window_velocity_cosine": 0.02916470794633319,
+            "first_window_step_rms_ratio": 2.612717946428814,
+            "seam_max_median": 0.12383528798818588,
+            "body_seconds": 77.02826723549515,
+            "encode_seconds": 10.834008869249374,
+            "relative_change": -0.05647959081897258,
+            "first_window_relative_change": -0.02725483573047771,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 2,
+            "mse_ratio_median": 0.9416454981408491,
+            "first_window_mse_ratio_median": 0.9623481068772497
+          }
+        },
+        {
+          "name": "full-s10",
+          "role": "step count alone: complete audio, 10 steps",
+          "run": "sota-dev-eval-3",
+          "ja": {
+            "steps": 10,
+            "first_window_seconds": null,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.01737172520918043,
+            "velocity_cosine": 0.07253504625428212,
+            "step_rms_ratio": 1.0276152814675255,
+            "first_window_raw_mse": 0.015770706002186653,
+            "first_window_velocity_cosine": 0.07509624115982409,
+            "first_window_step_rms_ratio": 1.0517462898853447,
+            "seam_max_median": 0.045318275690078735,
+            "body_seconds": 9.48857039026916,
+            "encode_seconds": 2.1211779061704874,
+            "relative_change": -0.024888026505563432,
+            "first_window_relative_change": -0.031446545862728215,
+            "recordings_worse": 18,
+            "first_window_recordings_worse": 18,
+            "mse_ratio_median": 0.9745067906103972,
+            "first_window_mse_ratio_median": 0.9714851654643406
+          },
+          "en": {
+            "steps": 10,
+            "first_window_seconds": null,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.019908201789560136,
+            "velocity_cosine": 0.00691866131118674,
+            "step_rms_ratio": 0.6730946066528117,
+            "first_window_raw_mse": 0.011805964545572235,
+            "first_window_velocity_cosine": 0.034463702427386306,
+            "first_window_step_rms_ratio": 2.3774899271361494,
+            "seam_max_median": 0.10799376666545868,
+            "body_seconds": 49.725759751629084,
+            "encode_seconds": 10.841207115445286,
+            "relative_change": -0.08930534933994516,
+            "first_window_relative_change": -0.051864192718095614,
+            "recordings_worse": 0,
+            "first_window_recordings_worse": 2,
+            "mse_ratio_median": 0.9094940854949163,
+            "first_window_mse_ratio_median": 0.939987946374389
+          }
+        },
+        {
+          "name": "full-s50-w1",
+          "role": "partial first window alone: 50 steps",
+          "run": "sota-dev-eval-3",
+          "ja": {
+            "steps": 50,
+            "first_window_seconds": 1.0,
+            "partial_every_window": false,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.01839023871217089,
+            "velocity_cosine": 0.0327768579738206,
+            "step_rms_ratio": 0.9484620643097513,
+            "first_window_raw_mse": 0.01821299887816158,
+            "first_window_velocity_cosine": 0.012759583373789365,
+            "first_window_step_rms_ratio": 0.8521559512654153,
+            "seam_max_median": 0.05512465536594391,
+            "body_seconds": 42.105728497728705,
+            "encode_seconds": 2.086808832362294,
+            "relative_change": 0.03228330794583001,
+            "first_window_relative_change": 0.11854618120430271,
+            "recordings_worse": 59,
+            "first_window_recordings_worse": 66,
+            "mse_ratio_median": 1.013153537934716,
+            "first_window_mse_ratio_median": 1.0896005167695662
+          },
+          "en": {
+            "steps": 50,
+            "first_window_seconds": 1.0,
+            "partial_every_window": false,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.021967115692277033,
+            "velocity_cosine": 0.005457650427084545,
+            "step_rms_ratio": 0.9210661199029998,
+            "first_window_raw_mse": 0.019940525138415734,
+            "first_window_velocity_cosine": 0.006278270538669852,
+            "first_window_step_rms_ratio": 4.621981066794386,
+            "seam_max_median": 0.14539459347724915,
+            "body_seconds": 230.3723526704125,
+            "encode_seconds": 10.957022457383573,
+            "relative_change": 0.0048790424596782955,
+            "first_window_relative_change": 0.6014215379655385,
+            "recordings_worse": 6,
+            "first_window_recordings_worse": 6,
+            "mse_ratio_median": 1.003806071313389,
+            "first_window_mse_ratio_median": 1.743127487955125
+          }
+        },
+        {
+          "name": "partial-all-s16-w1",
+          "role": "stress test: every window from its first 1 s of audio, 16 steps",
+          "run": "sota-dev-eval-3",
+          "ja": {
+            "steps": 16,
+            "first_window_seconds": 1.0,
+            "partial_every_window": true,
+            "windows": 267,
+            "recordings": 102,
+            "raw_mse": 0.01830923949271232,
+            "velocity_cosine": 0.00814145438639484,
+            "step_rms_ratio": 0.6963272841990984,
+            "first_window_raw_mse": 0.017942144430247855,
+            "first_window_velocity_cosine": 0.014177678500495639,
+            "first_window_step_rms_ratio": 0.7350066309728546,
+            "seam_max_median": 0.05363130569458008,
+            "body_seconds": 14.263098285067827,
+            "encode_seconds": 2.122733028139919,
+            "relative_change": 0.0277366490626918,
+            "first_window_relative_change": 0.10191173179798518,
+            "recordings_worse": 55,
+            "first_window_recordings_worse": 65,
+            "mse_ratio_median": 1.0171198872755531,
+            "first_window_mse_ratio_median": 1.06772922113743
+          },
+          "en": {
+            "steps": 16,
+            "first_window_seconds": 1.0,
+            "partial_every_window": true,
+            "windows": 1389,
+            "recordings": 6,
+            "raw_mse": 0.032802265135929966,
+            "velocity_cosine": 0.0005496491230712309,
+            "step_rms_ratio": 0.8662514721366877,
+            "first_window_raw_mse": 0.019196375174667255,
+            "first_window_velocity_cosine": 0.006505584441794568,
+            "first_window_step_rms_ratio": 4.087338579123555,
+            "seam_max_median": 0.16563165187835693,
+            "body_seconds": 77.02459740405902,
+            "encode_seconds": 10.762564146425575,
+            "relative_change": 0.5005296663453331,
+            "first_window_relative_change": 0.5416589303536024,
+            "recordings_worse": 6,
+            "first_window_recordings_worse": 6,
+            "mse_ratio_median": 1.4715483718327471,
+            "first_window_mse_ratio_median": 1.6751260322268702
+          }
+        }
+      ],
+      "note": "Same frozen models and audio front end as the service; per-window noise seeds of the reply routine (not those of the training milestone banks); all development windows scored, no training. The training report own-audio control for the same model is 0.0177026 (Japanese).",
+      "source_sha256": {
+        "sota-dev-eval-3/collection.json": "8f24ece4509e29cb443a02f75a128154d77d2ae2115befd0e3642d5928e3f532",
+        "sota-dev-eval-3/run/report.json": "5e30a4d2960476d6ff613bc12b64be3c2ebeb6333ec1d1b6b54458385a622205",
+        "sota-dev-eval-4/collection.json": "3c017261f2a3d91644a56f1c37c9912efa32e425dd73206fc555750fb915484e",
+        "sota-dev-eval-4/run/report.json": "97a96492587cfafe6c420482a2d2f04fa7352bb6981a80fa96ee757c21bafc4f"
+      }
+    }
+  }
 }
