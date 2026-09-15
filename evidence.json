@@ -1884,6 +1884,117 @@
         "sota-dev-eval-4/collection.json": "3c017261f2a3d91644a56f1c37c9912efa32e425dd73206fc555750fb915484e",
         "sota-dev-eval-4/run/report.json": "97a96492587cfafe6c420482a2d2f04fa7352bb6981a80fa96ee757c21bafc4f"
       }
+    },
+    "client_check": {
+      "date": "2026-09-15",
+      "run": "sota-stream-demo-1",
+      "synthetic_devices": true,
+      "physical_devices_tested": false,
+      "client": "browser client with an energy end-of-speech detector (20 ms frames, 260 ms hangover) or push-to-talk, one camera still per turn, chunked playback; Windows Edge through an SSH tunnel to the resident service",
+      "turns": [
+        {
+          "language": "en",
+          "mode": "ptt",
+          "end_reason": "ptt",
+          "input_seconds": 4.52,
+          "seconds_after_true_end": {
+            "detect": 0,
+            "send": 0.012,
+            "accepted": 0.067,
+            "first_text": 0.085,
+            "first_audio": 0.21,
+            "first_motion": 0.686,
+            "playback_start": 0.686,
+            "done": 0.801,
+            "playback_end": 5.841
+          },
+          "image_attached": true,
+          "image_bytes": 7736,
+          "audio_stall_s": 0,
+          "motion_stall_s": 0,
+          "service_timing": {
+            "prompt_ready": 0.0037,
+            "first_text": 0.0627,
+            "first_audio": 0.1874,
+            "first_motion": 0.6612,
+            "audio_done": 0.6647,
+            "motion_done": 0.7369,
+            "playback_ready": 0.6612
+          },
+          "success": true
+        },
+        {
+          "language": "ja",
+          "mode": "auto",
+          "end_reason": "vad",
+          "input_seconds": 3.08,
+          "seconds_after_true_end": {
+            "detect": 0.26,
+            "send": 0.274,
+            "accepted": 0.328,
+            "first_text": 0.377,
+            "first_audio": 0.469,
+            "first_motion": 0.747,
+            "playback_start": 0.747,
+            "done": 0.752,
+            "playback_end": 4.801
+          },
+          "image_attached": true,
+          "image_bytes": 8120,
+          "audio_stall_s": 0,
+          "motion_stall_s": 0,
+          "service_timing": {
+            "prompt_ready": 0.0356,
+            "first_text": 0.0923,
+            "first_audio": 0.1843,
+            "first_motion": 0.4616,
+            "audio_done": 0.4646,
+            "motion_done": 0.4651,
+            "playback_ready": 0.4616
+          },
+          "success": true
+        },
+        {
+          "language": "ja",
+          "mode": "ptt",
+          "end_reason": "ptt",
+          "input_seconds": 4.5,
+          "seconds_after_true_end": {
+            "detect": 0,
+            "send": 0.013,
+            "accepted": 0.073,
+            "first_text": 0.086,
+            "first_audio": 0.202,
+            "first_motion": 0.603,
+            "playback_start": 0.603,
+            "done": 0.67,
+            "playback_end": 5.127
+          },
+          "image_attached": true,
+          "image_bytes": 7736,
+          "audio_stall_s": 0,
+          "motion_stall_s": 0,
+          "service_timing": {
+            "prompt_ready": 0.0038,
+            "first_text": 0.0611,
+            "first_audio": 0.1764,
+            "first_motion": 0.5759,
+            "audio_done": 0.5805,
+            "motion_done": 0.645,
+            "playback_ready": 0.5759
+          },
+          "success": true
+        }
+      ],
+      "playback_start_s": {
+        "min": 0.603,
+        "max": 0.747
+      },
+      "source_sha256": {
+        "browser-check/report-en-ptt.json": "f69ca1acdd625aae7bc6613dd94917cb9c3ba1493610695e13afd46bc4db47c8",
+        "browser-check/report-ja-auto.json": "b58c752a9926cf6f57cbf85c59c3fd604a83f10e1cd478a4e085ecbf29c6b8a7",
+        "browser-check/report-ja-ptt.json": "224aa10c34323bb5c38c7f78f082e83a2fa05b9c0b64579c6cea29a9a5ba33b5"
+      }
     }
   }
 }
